@@ -1,0 +1,29 @@
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\appsettings.json
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Projeto Avaliativo Módulo 02.exe
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Projeto Avaliativo Módulo 02.deps.json
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Projeto Avaliativo Módulo 02.runtimeconfig.json
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Projeto Avaliativo Módulo 02.runtimeconfig.dev.json
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Projeto Avaliativo Módulo 02.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\ref\Projeto Avaliativo Módulo 02.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Projeto Avaliativo Módulo 02.pdb
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.csproj.AssemblyReference.cache
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.AssemblyInfoInputs.cache
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.AssemblyInfo.cs
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.csproj.CoreCompileInputs.cache
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\staticwebassets\Projeto Avaliativo Módulo 02.StaticWebAssets.Manifest.cache
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\staticwebassets\Projeto Avaliativo Módulo 02.StaticWebAssets.xml
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\scopedcss\bundle\Projeto Avaliativo Módulo 02.styles.css
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.RazorTargetAssemblyInfo.cache
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.csproj.CopyComplete
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\ref\Projeto Avaliativo Módulo 02.dll
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.pdb
+C:\Users\Acer\Pet\DevinHouse\Projetos\Projeto Avaliativo Módulo 02\Projeto Avaliativo Módulo 02\obj\Debug\net5.0\Projeto Avaliativo Módulo 02.genruntimeconfig.cache

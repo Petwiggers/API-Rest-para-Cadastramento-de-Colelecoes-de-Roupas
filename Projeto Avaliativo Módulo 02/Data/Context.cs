@@ -14,6 +14,7 @@ namespace Projeto_Avaliativo_Módulo_02.Data
         {
         }
         public DbSet<Usuario> Usuarios { get; set; }
-        
+        public DbSet<Usuario> Usuarios { get; set; }
+
     }
 }

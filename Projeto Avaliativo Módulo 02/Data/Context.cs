@@ -14,7 +14,13 @@ namespace Projeto_Avaliativo_Módulo_02.Data
         {
         }
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Colecoes> Colecoes { get; set; }
+        public DbSet<Modelos> Modelos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projeto_Avaliativo_Módulo_02.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace Projeto_Avaliativo_Módulo_02.Models
         public string Email { get; set; }
         
         [Required(ErrorMessage = "O Campo Tipo Usuario é obrigatório")]
-        public int TipoUsuario { get; set; }
+        public TipoUsuario TipoUsuario { get; set; }
 
         [Required(ErrorMessage = "O Campo Tipo Status é obrigatório")]
-        public int Status { get; set; }
+        public Status Status { get; set; }
     }
 }

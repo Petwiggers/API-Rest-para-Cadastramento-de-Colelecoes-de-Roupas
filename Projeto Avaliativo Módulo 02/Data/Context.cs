@@ -39,8 +39,8 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Cpf_Cnpj = "01191379908",
                                 NumeroTelefone = "49983762147",
                                 Email = "maria@mail.com",
-                                TipoUsuario = 2,
-                                Status = 1,
+                                TipoUsuario = Enums.TipoUsuario.Criador,
+                                Status = Enums.Status.Ativo,
                             },
                             new Usuario
                             {
@@ -50,8 +50,8 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Cpf_Cnpj = "01221379908",
                                 NumeroTelefone = "49988562147",
                                 Email = "jp@mail.com",
-                                TipoUsuario = 1,
-                                Status = 2,
+                                TipoUsuario = Enums.TipoUsuario.Administrador,
+                                Status = Enums.Status.Inativo,
                             },
                             new Usuario
                             { 
@@ -61,8 +61,8 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Cpf_Cnpj = "01121779908",
                                 NumeroTelefone = "48988562246",
                                 Email = "mf@mail.com",
-                                TipoUsuario = 3,
-                                Status = 1,
+                                TipoUsuario = Enums.TipoUsuario.Outro,
+                                Status = Enums.Status.Ativo,
                             },
                             new Usuario
                             {
@@ -72,8 +72,8 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Cpf_Cnpj = "01223378808",
                                 NumeroTelefone = "48978567216",
                                 Email = "martin.c.@mail.com",
-                                TipoUsuario = 3,
-                                Status = 1,
+                                TipoUsuario = Enums.TipoUsuario.Criador,
+                                Status = Enums.Status.Ativo,
                             },
                             new Usuario
                             {
@@ -83,8 +83,8 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Cpf_Cnpj = "01327388808",
                                 NumeroTelefone = "48877567116",
                                 Email = "lsp@mail.com",
-                                TipoUsuario = 3,
-                                Status = 1,
+                                TipoUsuario = Enums.TipoUsuario.Administrador,
+                                Status = Enums.Status.Ativo,
                             }
                );
         }

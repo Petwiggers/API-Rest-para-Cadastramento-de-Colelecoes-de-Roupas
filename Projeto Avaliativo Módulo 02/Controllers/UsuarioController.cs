@@ -32,22 +32,35 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         [Route("/Cliente")]
         public IActionResult CadastrandoUsuario([FromBody]Usuario usuario)
         {
-            //Usuario validandoUsuario = _repository.Usuarios.Find(usuario.Cpf_Cnpj);
-            //if(validandoUsuario == null)
-            //{
-            //    _repository.Usuarios.Add(usuario);
-            //    _repository.SaveChanges();
-            //    return CreatedResult();
-            //}
-            //else
-            //{
-            //    return Conflict();
-            //}
-            _repository.Usuarios.Add(usuario);
-            return Ok();
+            try
+            {
+                Usuario validandoUsuario = _repository.Usuarios.FirstOrDefault(x => x.Cpf_Cnpj == usuario.Cpf_Cnpj);
+                if (validandoUsuario == null)
+                {
 
+                    if ((usuario.Status == Enums.Status.Ativo || usuario.Status == Enums.Status.Inativo)
+                        && (usuario.TipoUsuario == Enums.TipoUsuario.Administrador || usuario.TipoUsuario == Enums.TipoUsuario.Criador
+                        || usuario.TipoUsuario == Enums.TipoUsuario.Gerente || usuario.TipoUsuario == Enums.TipoUsuario.Outro))
+                    {
+                        _repository.Usuarios.Add(usuario);
+                        var resultado = _repository.SaveChanges();
+                        if (resultado > 0)
+                        {
+                            return StatusCode(201, usuario);
+                        }
 
-            
+                    }
+                    return BadRequest("A algum erro na inserção de Dados");
+
+                }
+
+                return Conflict();
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
+        
         }
 
      

@@ -10,8 +10,8 @@ using Projeto_Avaliativo_Módulo_02.Data;
 namespace Projeto_Avaliativo_Módulo_02.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230616135109_Inicializacao_Tabela_Usuarios")]
-    partial class Inicializacao_Tabela_Usuarios
+    [Migration("20230616233813_CriacaoTabelaUsuarios")]
+    partial class CriacaoTabelaUsuarios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,7 +75,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                             NomeCompleto = "Maria Fernanda",
                             NumeroTelefone = "49983762147",
                             Status = 1,
-                            TipoUsuario = 2
+                            TipoUsuario = 3
                         },
                         new
                         {
@@ -86,7 +86,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                             Genero = "Masculino",
                             NomeCompleto = "João Paulo",
                             NumeroTelefone = "49988562147",
-                            Status = 2,
+                            Status = 0,
                             TipoUsuario = 1
                         },
                         new
@@ -99,7 +99,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                             NomeCompleto = "Martin Fowler",
                             NumeroTelefone = "48988562246",
                             Status = 1,
-                            TipoUsuario = 3
+                            TipoUsuario = 4
                         },
                         new
                         {
@@ -123,7 +123,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                             NomeCompleto = "Barbara Liskov",
                             NumeroTelefone = "48877567116",
                             Status = 1,
-                            TipoUsuario = 3
+                            TipoUsuario = 1
                         });
                 });
 #pragma warning restore 612, 618

@@ -21,7 +21,7 @@ namespace Projeto_Avaliativo_Módulo_02.Models
 
         [Required(ErrorMessage = "O campo data é obrigatório")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime Data { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "O campo Cpf/Cnpj é obrigatório")]
         [MaxLength(20, ErrorMessage = "O campo Cpf/Cnpj deve conter no Maximo 20 caracteres")]

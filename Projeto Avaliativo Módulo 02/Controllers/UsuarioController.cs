@@ -23,17 +23,9 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             _repository = context;
         }
-        [Route("Get")]
 
-        [HttpGet]
-        public ActionResult<List<Usuario>> BuscarTodosUSuarios()
-        {
-            var usuarios = _repository.Usuarios.ToList();
-            return Ok(usuarios);
-        }
-        [Route("Post")]
         [HttpPost]
-        public IActionResult CadastrandoUsuario([FromBody]Usuario usuario)
+        public IActionResult CadastrandoUsuario([FromBody] Usuario usuario)
         {
             try
             {
@@ -62,16 +54,16 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult AtualizandoUsuario([FromBody]Usuario novoUsuario,[FromRoute] int id)
+        public IActionResult AtualizandoUsuario([FromBody] Usuario novoUsuario, [FromRoute] int id)
         {
             try
-            {   
-                if(novoUsuario.Id != id)
+            {
+                if (novoUsuario.Id != id)
                 {
                     return BadRequest("No corpo do Usuario você deve inserir o mesmo Id correspondente a ele!");
                 }
                 Usuario usuario = _repository.Usuarios.Find(id);
-                if(!(usuario == null))
+                if (!(usuario == null))
                 {
                     if (services.ValidaStatus_TipoUsuario(novoUsuario))
                     {
@@ -95,7 +87,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         [HttpPut]
         [Route("{id}/status")]
-        public IActionResult AtualizandoStatusUsuario ([FromBody]StatusModel status, [FromRoute] int id)
+        public IActionResult AtualizandoStatusUsuario([FromBody] StatusModel status, [FromRoute] int id)
         {
             try
             {
@@ -126,27 +118,52 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         }
 
         [HttpGet]
-        [Route("exemplo")]
         public IActionResult BuscarUsuarios([FromQuery] string status)
         {
-            if(status == null)
+            try
             {
-                var usuarios = _repository.Usuarios.ToList();
-                return Ok(usuarios);
+                List<Usuario> usuarios;
+                if (status == null)
+                {
+                    usuarios = _repository.Usuarios.ToList();
+                    return Ok(usuarios);
+                }
+                else
+                {
+                    if (status == "ATIVO")
+                    {
+                        usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Ativo).ToList();
+                        return Ok(usuarios);
+                    }
+                    else if (status == "INATIVO")
+                    {
+                        usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Inativo).ToList();
+                        return Ok(usuarios);
+                    }
+                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO ");
+                }
             }
-            else
+            catch (Exception exception)
             {
-                if(status == "ATIVO")
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult BuscarUsuario([FromRoute] int id)
+        {
+            try
+            {
+                Usuario usuario = _repository.Usuarios.Find(id);
+                if (!(usuario == null))
                 {
-                    var usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Ativo);
-                    return Ok(usuarios);
+                    return Ok(usuario);
                 }
-                else if (status == "INATIVO")
-                {
-                    var usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Inativo);
-                    return Ok(usuarios);
-                }
-                return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO ");
+                return NotFound("O Usuario informado não existe !");
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
     }

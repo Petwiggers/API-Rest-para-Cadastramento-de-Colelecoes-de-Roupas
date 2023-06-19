@@ -31,7 +31,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -67,7 +67,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                         {
                             Id = 1,
                             Cpf_Cnpj = "01191379908",
-                            Data = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1997, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "maria@mail.com",
                             Genero = "Feminino",
                             NomeCompleto = "Maria Fernanda",
@@ -79,7 +79,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                         {
                             Id = 2,
                             Cpf_Cnpj = "01221379908",
-                            Data = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1968, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jp@mail.com",
                             Genero = "Masculino",
                             NomeCompleto = "João Paulo",
@@ -91,7 +91,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                         {
                             Id = 3,
                             Cpf_Cnpj = "01121779908",
-                            Data = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1977, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mf@mail.com",
                             Genero = "Masculino",
                             NomeCompleto = "Martin Fowler",
@@ -103,7 +103,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                         {
                             Id = 4,
                             Cpf_Cnpj = "01223378808",
-                            Data = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(2004, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "martin.c.@mail.com",
                             Genero = "Masculino",
                             NomeCompleto = "Uncle Bob",
@@ -115,7 +115,7 @@ namespace Projeto_Avaliativo_Módulo_02.Migrations
                         {
                             Id = 5,
                             Cpf_Cnpj = "01327388808",
-                            Data = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DataNascimento = new DateTime(1991, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "lsp@mail.com",
                             Genero = "Masculino",
                             NomeCompleto = "Barbara Liskov",

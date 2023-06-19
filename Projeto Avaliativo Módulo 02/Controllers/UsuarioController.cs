@@ -62,7 +62,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult AtualizandoRegistro([FromBody]Usuario novoUsuario,[FromRoute] int id)
+        public IActionResult AtualizandoUsuario([FromBody]Usuario novoUsuario,[FromRoute] int id)
         {
             try
             {   
@@ -97,28 +97,57 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         [Route("{id}/status")]
         public IActionResult AtualizandoStatusUsuario ([FromBody]StatusModel status, [FromRoute] int id)
         {
-            Usuario usuario = _repository.Usuarios.Find(id);
-            if (!(usuario == null))
+            try
             {
-                if (services.ValidaStatus(status))
+                Usuario usuario = _repository.Usuarios.Find(id);
+                if (!(usuario == null))
                 {
-                    usuario.Status = status.StatusUsuario;
-                    _repository.Entry(usuario).CurrentValues.SetValues(usuario);
-                    int resultado = _repository.SaveChanges();
-                    if (resultado > 0)
+                    if (services.ValidaStatus(status))
                     {
-                        return Ok(usuario);
+                        usuario.Status = status.StatusUsuario;
+                        _repository.Entry(usuario).CurrentValues.SetValues(usuario);
+                        int resultado = _repository.SaveChanges();
+                        if (resultado > 0)
+                        {
+                            return Ok(usuario);
+                        }
+                        return BadRequest("O campo não foi atualizado !");
+
                     }
-                    return BadRequest("O campo não foi atualizado !");
+                    return BadRequest("O campo Status deve conter os Valores de 0 = Inativo ou 1 = Ativo");
 
                 }
-                return BadRequest("O campo Status deve conter os Valores de 0 = Inativo ou 1 = Ativo");
-
+                return NotFound("O Usuario informado não existe !");
             }
-            return NotFound("O Usuario informado não existe !");
-
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
         }
 
-
+        [HttpGet]
+        [Route("exemplo")]
+        public IActionResult BuscarUsuarios([FromQuery] string status)
+        {
+            if(status == null)
+            {
+                var usuarios = _repository.Usuarios.ToList();
+                return Ok(usuarios);
+            }
+            else
+            {
+                if(status == "ATIVO")
+                {
+                    var usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Ativo);
+                    return Ok(usuarios);
+                }
+                else if (status == "INATIVO")
+                {
+                    var usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Inativo);
+                    return Ok(usuarios);
+                }
+                return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO ");
+            }
+        }
     }
 }

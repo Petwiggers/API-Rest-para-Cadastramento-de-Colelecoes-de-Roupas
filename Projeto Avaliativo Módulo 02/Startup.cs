@@ -37,7 +37,6 @@ namespace Projeto_Avaliativo_Módulo_02
 
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataBase")));
-
             services.AddScoped<Context>();
 
         }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Avaliativo_Módulo_02.Data;
+using Projeto_Avaliativo_Módulo_02.FromBodys;
 using Projeto_Avaliativo_Módulo_02.Models;
+using Projeto_Avaliativo_Módulo_02.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +17,13 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly Context _repository;
+        private readonly Validacoes services = new Validacoes();
 
         public UsuarioController(Context context)
         {
             _repository = context;
         }
+        [Route("Get")]
 
         [HttpGet]
         public ActionResult<List<Usuario>> BuscarTodosUSuarios()
@@ -27,7 +31,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             var usuarios = _repository.Usuarios.ToList();
             return Ok(usuarios);
         }
-
+        [Route("Post")]
         [HttpPost]
         public IActionResult CadastrandoUsuario([FromBody]Usuario usuario)
         {
@@ -36,9 +40,8 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 Usuario validandoUsuario = _repository.Usuarios.FirstOrDefault(x => x.Cpf_Cnpj == usuario.Cpf_Cnpj);
                 if (validandoUsuario == null)
                 {
-                    if ((usuario.Status == Enums.Status.Ativo || usuario.Status == Enums.Status.Inativo)
-                        && (usuario.TipoUsuario == Enums.TipoUsuario.Administrador || usuario.TipoUsuario == Enums.TipoUsuario.Criador
-                        || usuario.TipoUsuario == Enums.TipoUsuario.Gerente || usuario.TipoUsuario == Enums.TipoUsuario.Outro))
+
+                    if (services.ValidaStatus_TipoUsuario(usuario))
                     {
                         _repository.Usuarios.Add(usuario);
                         var resultado = _repository.SaveChanges();
@@ -70,9 +73,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 Usuario usuario = _repository.Usuarios.Find(id);
                 if(!(usuario == null))
                 {
-                    if ((novoUsuario.Status == Enums.Status.Ativo || novoUsuario.Status == Enums.Status.Inativo)
-                    && (novoUsuario.TipoUsuario == Enums.TipoUsuario.Administrador || novoUsuario.TipoUsuario == Enums.TipoUsuario.Criador
-                    || novoUsuario.TipoUsuario == Enums.TipoUsuario.Gerente || novoUsuario.TipoUsuario == Enums.TipoUsuario.Outro))
+                    if (services.ValidaStatus_TipoUsuario(novoUsuario))
                     {
                         _repository.Entry(usuario).CurrentValues.SetValues(novoUsuario);
                         int resultado = _repository.SaveChanges();
@@ -80,6 +81,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                         {
                             return Ok(usuario);
                         }
+                        return BadRequest("O Usuario não foi atualizado !");
                     }
                     return BadRequest("A algum erro na inserção de Dados");
                 }
@@ -90,5 +92,33 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
+
+        [HttpPut]
+        [Route("{id}/status")]
+        public IActionResult AtualizandoStatusUsuario ([FromBody]StatusModel status, [FromRoute] int id)
+        {
+            Usuario usuario = _repository.Usuarios.Find(id);
+            if (!(usuario == null))
+            {
+                if (services.ValidaStatus(status))
+                {
+                    usuario.Status = status.StatusUsuario;
+                    _repository.Entry(usuario).CurrentValues.SetValues(usuario);
+                    int resultado = _repository.SaveChanges();
+                    if (resultado > 0)
+                    {
+                        return Ok(usuario);
+                    }
+                    return BadRequest("O campo não foi atualizado !");
+
+                }
+                return BadRequest("O campo Status deve conter os Valores de 0 = Inativo ou 1 = Ativo");
+
+            }
+            return NotFound("O Usuario informado não existe !");
+
+        }
+
+
     }
 }

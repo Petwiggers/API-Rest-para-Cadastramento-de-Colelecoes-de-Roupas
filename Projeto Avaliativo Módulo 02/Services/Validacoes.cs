@@ -1,4 +1,5 @@
-﻿using Projeto_Avaliativo_Módulo_02.FromBodys;
+﻿using Projeto_Avaliativo_Módulo_02.Enums;
+using Projeto_Avaliativo_Módulo_02.FromBodys;
 using Projeto_Avaliativo_Módulo_02.Models;
 using System;
 using System.Collections.Generic;
@@ -17,21 +18,25 @@ namespace Projeto_Avaliativo_Módulo_02.Services
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
+            
         }
-        public bool ValidaStatus(StatusModel status)
+        public bool ValidaStatus(Status status)
         {
-            if (status.StatusUsuario == Enums.Status.Ativo || status.StatusUsuario == Enums.Status.Inativo)
+            if (status == Status.Ativo || status == Status.Inativo)
             {
                 return true;
             }
-            else
+            return false;
+        }
+
+        public bool ValidaEstacoes(Estacoes estacao)
+        {
+            if(estacao == Estacoes.Outono || estacao == Estacoes.Inverno || estacao == Estacoes.Primavera || estacao == Estacoes.Verao)
             {
-                return false;
+                    return true;
             }
+            return false;
         }
     }
 }

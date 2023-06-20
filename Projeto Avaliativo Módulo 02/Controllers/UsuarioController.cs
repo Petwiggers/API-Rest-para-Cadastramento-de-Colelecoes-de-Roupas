@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Avaliativo_Módulo_02.Data;
+using Projeto_Avaliativo_Módulo_02.Enums;
 using Projeto_Avaliativo_Módulo_02.FromBodys;
 using Projeto_Avaliativo_Módulo_02.Models;
 using Projeto_Avaliativo_Módulo_02.Services;
@@ -17,7 +18,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly Context _repository;
-        private readonly Validacoes services = new Validacoes();
+        private readonly Validacoes _services = new Validacoes();
 
         public UsuarioController(Context context)
         {
@@ -33,7 +34,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 if (validandoUsuario == null)
                 {
 
-                    if (services.ValidaStatus_TipoUsuario(usuario))
+                    if (_services.ValidaStatus_TipoUsuario(usuario))
                     {
                         _repository.Usuarios.Add(usuario);
                         var resultado = _repository.SaveChanges();
@@ -41,10 +42,11 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                         {
                             return StatusCode(201, usuario);
                         }
+                        return BadRequest("O Usuario não foi atualizado !");
                     }
                     return BadRequest("A algum erro na inserção de Dados");
                 }
-                return Conflict();
+                return Conflict("Ja possui um Usuário com o Cpf/Cnpj :" +usuario.Cpf_Cnpj);
             }
             catch (Exception exception)
             {
@@ -65,7 +67,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 Usuario usuario = _repository.Usuarios.Find(id);
                 if (!(usuario == null))
                 {
-                    if (services.ValidaStatus_TipoUsuario(novoUsuario))
+                    if (_services.ValidaStatus_TipoUsuario(novoUsuario))
                     {
                         _repository.Entry(usuario).CurrentValues.SetValues(novoUsuario);
                         int resultado = _repository.SaveChanges();
@@ -87,16 +89,16 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         [HttpPut]
         [Route("{id}/status")]
-        public IActionResult AtualizandoStatusUsuario([FromBody] StatusModel status, [FromRoute] int id)
+        public IActionResult AtualizandoStatusUsuario([FromBody] Status status, [FromRoute] int id)
         {
             try
             {
                 Usuario usuario = _repository.Usuarios.Find(id);
                 if (!(usuario == null))
                 {
-                    if (services.ValidaStatus(status))
+                    if (_services.ValidaStatus(status))
                     {
-                        usuario.Status = status.StatusUsuario;
+                        usuario.Status = status;
                         _repository.Entry(usuario).CurrentValues.SetValues(usuario);
                         int resultado = _repository.SaveChanges();
                         if (resultado > 0)

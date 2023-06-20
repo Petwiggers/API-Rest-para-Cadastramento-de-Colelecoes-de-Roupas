@@ -17,7 +17,7 @@ namespace Projeto_Avaliativo_Módulo_02.Data
         {
         }
         public DbSet<Usuario> Usuarios { get; set; }
-        //public DbSet<Colecoes> Colecoes { get; set; }
+        public DbSet<Colecoes> Colecoes { get; set; }
         //public DbSet<Modelos> Modelos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -92,6 +92,64 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Status = Enums.Status.Ativo,
                             }
                );
+            modelBuilder.Entity<Colecoes>().HasData(
+                            new Colecoes
+                            {
+                                Id = 1,
+                                Nome = "Outono Inverno",
+                                IdResponsavel = 4,
+                                Marca = "Adidas",
+                                Orcamento = 250000,
+                                AnoLancamento = new DateTime (2022,11,11),
+                                Estacao = Enums.Estacoes.Outono,
+                                Status = Enums.Status.Ativo
+                            },
+                            new Colecoes
+                            {
+                                Id = 2,
+                                Nome = "Florescer da Mata",
+                                IdResponsavel = 2,
+                                Marca = "Oakley",
+                                Orcamento = 1000000,
+                                AnoLancamento = new DateTime (2019,05,30),
+                                Estacao = Enums.Estacoes.Primavera,
+                                Status = Enums.Status.Inativo
+                            },
+                            new Colecoes
+                            {
+                                Id = 3,
+                                Nome = "Esfriou",
+                                IdResponsavel = 1,
+                                Marca = "Nike",
+                                Orcamento = 100000,
+                                AnoLancamento = new DateTime (2023, 07, 14),
+                                Estacao = Enums.Estacoes.Inverno,
+                                Status = Enums.Status.Ativo
+                            },
+                            new Colecoes
+                            {
+                                Id = 4,
+                                Nome = "Vem verão",
+                                IdResponsavel = 5,
+                                Marca = "Calvin Klein",
+                                Orcamento = 250000,
+                                AnoLancamento = new DateTime (2004,06,15),
+                                Estacao = Enums.Estacoes.Verao,
+                                Status = Enums.Status.Ativo
+                            },
+                            new Colecoes
+                            {
+                                Id = 5,
+                                Nome = "Moda Fitnes",
+                                IdResponsavel = 3,
+                                Marca = "Puma",
+                                Orcamento = 428900,
+                                AnoLancamento = new DateTime (2010, 01, 03),
+                                Estacao = Enums.Estacoes.Primavera,
+                                Status = Enums.Status.Inativo
+                            }
+
+                );
         }
 
     }

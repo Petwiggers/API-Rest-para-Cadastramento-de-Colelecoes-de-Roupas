@@ -14,19 +14,19 @@ namespace Projeto_Avaliativo_Módulo_02.Enums
         [Description("Bermuda")]
         Bermuda,
         [Description("Bíquini")]
-        Bíquini,
+        Biquini,
         [Description("Bolsa")]
         Bolsa,
         [Description("Boné")]
-        Boné,
+        Bone,
         [Description("Calça")]
-        Calça,
+        Calca,
         [Description("Calçados")]
-        Calçados,
+        Calcados,
         [Description("Camisa")]
         Camisa,
-        [Description("Chápeu")]
-        Chápeu,
+        [Description("Chapeu")]
+        Chapeu,
         [Description("Saia")]
         Saia
     }

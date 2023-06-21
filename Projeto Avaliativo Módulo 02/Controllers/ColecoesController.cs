@@ -65,7 +65,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 Colecoes colecao  = await _repository.Colecoes.FindAsync(id);
                 if (!(colecao == null))
                 {
-                    if (_services.ValidaStatus(colecaoAtualizada.Status) && _services.ValidaEstacoes(colecaoAtualizada.Estacao))
+                    if (_services.ValidaDadosColecoes(colecaoAtualizada.Status, colecaoAtualizada.Estacao, colecaoAtualizada.IdResponsavel))
                     {
                         _repository.Entry(colecao).CurrentValues.SetValues(colecaoAtualizada);
                         int resultado = await _repository.SaveChangesAsync();

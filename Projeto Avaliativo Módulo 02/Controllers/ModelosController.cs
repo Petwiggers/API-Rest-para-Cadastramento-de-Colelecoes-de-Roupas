@@ -50,5 +50,47 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
+
+        [HttpPut("{id}")]
+
+        public async Task<IActionResult> AtualizarModelos([FromBody] Modelos modeloAtualizado, int id)
+        {
+            try
+            {
+                if (modeloAtualizado.Id != id)
+                {
+                    return BadRequest("No corpo da Coleção você deve inserir o mesmo Id correspondente a ela!");
+                }
+                Modelos modelo = await _repository.Modelos.FindAsync(id);
+                if (!(modelo == null))
+                {
+                    if (_services.ValidaDadosModelos(modeloAtualizado.Tipo, modeloAtualizado.Layout, modeloAtualizado.IdColecao))
+                    {
+                        _repository.Entry(modelo).CurrentValues.SetValues(modeloAtualizado);
+                        int resultado = await _repository.SaveChangesAsync();
+                        if (resultado > 0)
+                        {
+                            return Ok(modeloAtualizado);
+                        }
+                        return BadRequest("O Usuario não foi atualizado !");
+                    }
+                    return BadRequest("A algum erro na inserção de Dados");
+                }
+                return NotFound("O Usuario informado não existe !");
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<Modelos> modelos = _repository.Modelos.ToList();
+            return Ok(modelos);
+        }
+
+
     }
 }

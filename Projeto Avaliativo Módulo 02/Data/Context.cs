@@ -156,7 +156,7 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Id = 1,
                                 Nome = "Calça Rasgada",
                                 IdColecao = 3,
-                                Tipo = Enums.TipoModelos.Calça,
+                                Tipo = Enums.TipoModelos.Calca,
                                 Layout = Enums.LayoutModelos.Bordado
                             },
                             new Modelos
@@ -164,7 +164,7 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Id = 2,
                                 Nome = "Chápeu de Palha",
                                 IdColecao = 5,
-                                Tipo = Enums.TipoModelos.Chápeu,
+                                Tipo = Enums.TipoModelos.Chapeu,
                                 Layout = Enums.LayoutModelos.Liso
                             },
                             new Modelos
@@ -180,7 +180,7 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Id = 4,
                                 Nome = "Sapato Social",
                                 IdColecao = 4,
-                                Tipo = Enums.TipoModelos.Calçados,
+                                Tipo = Enums.TipoModelos.Calcados,
                                 Layout = Enums.LayoutModelos.Liso
                             },
                             new Modelos

@@ -47,10 +47,10 @@ namespace Projeto_Avaliativo_Módulo_02.Services
 
         public bool ValidaTipoModelos (TipoModelos tipo)
         {
-            if(tipo == TipoModelos.Bermuda || tipo == TipoModelos.Bíquini || 
-                    tipo == TipoModelos.Bolsa || tipo == TipoModelos.Boné ||
-                        tipo == TipoModelos.Calça || tipo == TipoModelos.Calçados ||
-                            tipo == TipoModelos.Camisa || tipo == TipoModelos.Chápeu ||
+            if(tipo == TipoModelos.Bermuda || tipo == TipoModelos.Biquini || 
+                    tipo == TipoModelos.Bolsa || tipo == TipoModelos.Bone ||
+                        tipo == TipoModelos.Calca || tipo == TipoModelos.Calcados ||
+                            tipo == TipoModelos.Camisa || tipo == TipoModelos.Chapeu ||
                                 tipo == TipoModelos.Saia)
             {
                 return true;

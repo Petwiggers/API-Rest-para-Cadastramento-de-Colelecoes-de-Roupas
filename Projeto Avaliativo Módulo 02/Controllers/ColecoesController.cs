@@ -118,9 +118,35 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         // GET: api/Colecoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Colecoes>>> GetColecoes()
+        public async Task<ActionResult<IEnumerable<Colecoes>>> GetColecoes([FromQuery] string status)
         {
-            return await _repository.Colecoes.ToListAsync();
+            try
+            {
+                List<Colecoes> colecoes;
+                if (status == null)
+                {
+                    colecoes = _repository.Colecoes.ToList();
+                    return Ok(colecoes);
+                }
+                else
+                {
+                    if (status == "ATIVO")
+                    {
+                        colecoes = _repository.Colecoes.Where(x => x.Status == Enums.Status.Ativo).ToList();
+                        return Ok(colecoes);
+                    }
+                    else if (status == "INATIVO")
+                    {
+                        colecoes = _repository.Colecoes.Where(x => x.Status == Enums.Status.Inativo).ToList();
+                        return Ok(colecoes);
+                    }
+                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO \n\n Obs: Precisa ser escrito em Maiúsculo");
+                }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
         }
 
         // GET: api/Colecoes/5

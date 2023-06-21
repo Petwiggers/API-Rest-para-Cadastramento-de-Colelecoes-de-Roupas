@@ -142,7 +142,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                         usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Inativo).ToList();
                         return Ok(usuarios);
                     }
-                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO ");
+                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO \n\n Obs: Precisa ser escrito em Maiúsculo");
                 }
             }
             catch (Exception exception)

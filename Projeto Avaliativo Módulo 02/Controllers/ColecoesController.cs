@@ -153,14 +153,19 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Colecoes>> GetColecoes(int id)
         {
-            var colecoes = await _repository.Colecoes.FindAsync(id);
-
-            if (colecoes == null)
+            try
             {
-                return NotFound();
+                Colecoes colecoes = _repository.Colecoes.Find(id);
+                if (!(colecoes == null))
+                {
+                    return Ok(colecoes);
+                }
+                return NotFound("O Usuario informado não existe !");
             }
-
-            return colecoes;
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
         }
 
         // DELETE: api/Colecoes/5

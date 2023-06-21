@@ -9,8 +9,8 @@ namespace Projeto_Avaliativo_Módulo_02.Enums
     public enum Status
     {
         [Description("Inativo")]
-        Inativo = 0,
+        Inativo,
         [Description("Ativo")]
-        Ativo = 1
+        Ativo
     }
 }

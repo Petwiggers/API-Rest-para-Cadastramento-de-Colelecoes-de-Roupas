@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Projeto_Avaliativo_Módulo_02.Data;
+using Projeto_Avaliativo_Módulo_02.Enums;
 using Projeto_Avaliativo_Módulo_02.Models;
 using Projeto_Avaliativo_Módulo_02.Services;
 
 namespace Projeto_Avaliativo_Módulo_02.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/colecoes")]
     [ApiController]
     public class ColecoesController : ControllerBase
     {
@@ -82,7 +83,39 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
         }
-    
+
+        [HttpPut]
+        [Route("{id}/status")]
+        public IActionResult AtualizandoStatusColecao([FromBody] Status status, [FromRoute] int id)
+        {
+            try
+            {
+                Colecoes colecao = _repository.Colecoes.Find(id);
+                if (!(colecao == null))
+                {
+                    if (_services.ValidaStatus(status))
+                    {
+                        colecao.Status = status;
+                        _repository.Entry(colecao).CurrentValues.SetValues(colecao);
+                        int resultado = _repository.SaveChanges();
+                        if (resultado > 0)
+                        {
+                            return Ok(colecao);
+                        }
+                        return BadRequest($"A Coleção já está {status}(a) !");
+
+                    }
+                    return BadRequest("O campo Status deve conter os Valores de 0 = Inativo ou 1 = Ativo");
+                }
+                return NotFound("O Usuario informado não existe !");
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
+        }
+
+
         // GET: api/Colecoes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Colecoes>>> GetColecoes()

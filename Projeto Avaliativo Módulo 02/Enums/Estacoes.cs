@@ -10,7 +10,7 @@ namespace Projeto_Avaliativo_Módulo_02.Enums
     public enum Estacoes
     {
         [Description("Outono")]
-        Outono = 0,
+        Outono,
         [Description("Inverno")]
         Inverno,
         [Description("Primavera")]

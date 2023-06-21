@@ -8,12 +8,12 @@ namespace Projeto_Avaliativo_Módulo_02.Enums
     public enum TipoUsuario
     {
         [Description("Administrador")]
-        Administrador = 1,
+        Administrador,
         [Description("Gerente")]
-        Gerente = 2,
+        Gerente,
         [Description("Criador")]
-        Criador = 3,
+        Criador,
         [Description("Outro")]
-        Outro = 4
+        Outro,
     }
 }

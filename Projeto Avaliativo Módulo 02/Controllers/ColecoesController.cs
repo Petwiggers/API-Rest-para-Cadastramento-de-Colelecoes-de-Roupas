@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Projeto_Avaliativo_Módulo_02.Data;
 using Projeto_Avaliativo_Módulo_02.Enums;
 using Projeto_Avaliativo_Módulo_02.Models;
 using Projeto_Avaliativo_Módulo_02.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Projeto_Avaliativo_Módulo_02.Controllers
 {
@@ -86,18 +86,18 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         [HttpPut]
         [Route("{id}/status")]
-        public IActionResult AtualizandoStatusColecao([FromBody] Status status, [FromRoute] int id)
+        public async Task<ActionResult<IEnumerable<Colecoes>>> AtualizandoStatusColecao([FromBody] Status status, [FromRoute] int id)
         {
             try
             {
-                Colecoes colecao = _repository.Colecoes.Find(id);
+                Colecoes colecao = await _repository.Colecoes.FindAsync(id);
                 if (!(colecao == null))
                 {
                     if (_services.ValidaStatus(status))
                     {
                         colecao.Status = status;
                         _repository.Entry(colecao).CurrentValues.SetValues(colecao);
-                        int resultado = _repository.SaveChanges();
+                        int resultado = await _repository.SaveChangesAsync();
                         if (resultado > 0)
                         {
                             return Ok(colecao);
@@ -118,26 +118,26 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         // GET: api/Colecoes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Colecoes>>> GetColecoes([FromQuery] string status)
+        public async Task<ActionResult<IEnumerable<Colecoes>>> ListagemDeColecoes([FromQuery] string status)
         {
             try
             {
                 List<Colecoes> colecoes;
                 if (status == null)
                 {
-                    colecoes = _repository.Colecoes.ToList();
+                    colecoes = await _repository.Colecoes.ToListAsync();
                     return Ok(colecoes);
                 }
                 else
                 {
                     if (status == "ATIVO")
                     {
-                        colecoes = _repository.Colecoes.Where(x => x.Status == Enums.Status.Ativo).ToList();
+                        colecoes = await _repository.Colecoes.Where(x => x.Status == Enums.Status.Ativo).ToListAsync();
                         return Ok(colecoes);
                     }
                     else if (status == "INATIVO")
                     {
-                        colecoes = _repository.Colecoes.Where(x => x.Status == Enums.Status.Inativo).ToList();
+                        colecoes = await _repository.Colecoes.Where(x => x.Status == Enums.Status.Inativo).ToListAsync();
                         return Ok(colecoes);
                     }
                     return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO \n\n Obs: Precisa ser escrito em Maiúsculo");
@@ -151,11 +151,11 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
 
         // GET: api/Colecoes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Colecoes>> GetColecoes(int id)
+        public async Task<ActionResult<Colecoes>> ListagemDeColecoesId(int id)
         {
             try
             {
-                Colecoes colecoes = _repository.Colecoes.Find(id);
+                Colecoes colecoes = await _repository.Colecoes.FindAsync(id);
                 if (!(colecoes == null))
                 {
                     return Ok(colecoes);
@@ -182,11 +182,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             await _repository.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool ColecoesExists(int id)
-        {
-            return _repository.Colecoes.Any(e => e.Id == id);
         }
     }
 }

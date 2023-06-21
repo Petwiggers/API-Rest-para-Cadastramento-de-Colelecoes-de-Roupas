@@ -18,7 +18,7 @@ namespace Projeto_Avaliativo_Módulo_02.Data
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Colecoes> Colecoes { get; set; }
-        //public DbSet<Modelos> Modelos { get; set; }
+        public DbSet<Modelos> Modelos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -149,6 +149,48 @@ namespace Projeto_Avaliativo_Módulo_02.Data
                                 Status = Enums.Status.Inativo
                             }
 
+                );
+            modelBuilder.Entity<Modelos>().HasData(
+                            new Modelos 
+                            {
+                                Id = 1,
+                                Nome = "Calça Rasgada",
+                                IdColecao = 3,
+                                Tipo = Enums.TipoModelos.Calça,
+                                Layout = Enums.LayoutModelos.Bordado
+                            },
+                            new Modelos
+                            {
+                                Id = 2,
+                                Nome = "Chápeu de Palha",
+                                IdColecao = 5,
+                                Tipo = Enums.TipoModelos.Chápeu,
+                                Layout = Enums.LayoutModelos.Liso
+                            },
+                            new Modelos
+                            {
+                                Id = 3,
+                                Nome = "Camisa Estampa Dragão",
+                                IdColecao = 2,
+                                Tipo = Enums.TipoModelos.Camisa,
+                                Layout = Enums.LayoutModelos.Estampa
+                            },
+                            new Modelos 
+                            {
+                                Id = 4,
+                                Nome = "Sapato Social",
+                                IdColecao = 4,
+                                Tipo = Enums.TipoModelos.Calçados,
+                                Layout = Enums.LayoutModelos.Liso
+                            },
+                            new Modelos
+                            {
+                                Id = 5,
+                                Nome = "Bolsa de Couro",
+                                IdColecao = 2,
+                                Tipo = Enums.TipoModelos.Bolsa,
+                                Layout = Enums.LayoutModelos.Bordado
+                            }
                 );
         }
 

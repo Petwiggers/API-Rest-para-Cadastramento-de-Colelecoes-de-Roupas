@@ -17,11 +17,12 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
     public class ColecoesController : ControllerBase
     {
         private readonly Context _repository;
-        private readonly Validacoes _services = new Validacoes();
+        private readonly Validacoes _services;
 
         public ColecoesController(Context context)
         {
             _repository = context;
+            _services = new Validacoes(context);
         }
 
         [HttpPost]
@@ -29,10 +30,10 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                Colecoes validandoUsuario = await _repository.Colecoes.FirstOrDefaultAsync(x => x.Nome == colecao.Nome);
-                if (validandoUsuario == null)
+                Colecoes validandoNomeColecao= await _repository.Colecoes.FirstOrDefaultAsync(x => x.Nome == colecao.Nome);
+                if (validandoNomeColecao == null)
                 {
-                    if (_services.ValidaStatus(colecao.Status) && _services.ValidaEstacoes(colecao.Estacao))
+                    if (_services.ValidaDadosColecoes(colecao.Status, colecao.Estacao, colecao.IdResponsavel))
                     {
                         await _repository.Colecoes.AddAsync(colecao);
                         var resultado = await _repository.SaveChangesAsync();
@@ -115,8 +116,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             }
         }
 
-
-        // GET: api/Colecoes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Colecoes>>> ListagemDeColecoes([FromQuery] string status)
         {
@@ -149,7 +148,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             }
         }
 
-        // GET: api/Colecoes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Colecoes>> ListagemDeColecoesId(int id)
         {
@@ -168,7 +166,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             }
         }
 
-        // DELETE: api/Colecoes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteColecoes(int id)
         {

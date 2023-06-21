@@ -18,11 +18,12 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly Context _repository;
-        private readonly Validacoes _services = new Validacoes();
+        private readonly Validacoes _services;
 
         public UsuarioController(Context context)
         {
             _repository = context;
+            _services = new Validacoes(context);
         }
 
         [HttpPost]
@@ -30,8 +31,8 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                Usuario validandoUsuario = _repository.Usuarios.FirstOrDefault(x => x.Cpf_Cnpj == usuario.Cpf_Cnpj);
-                if (validandoUsuario == null)
+                Usuario validandoCpfUsuario = _repository.Usuarios.FirstOrDefault(x => x.Cpf_Cnpj == usuario.Cpf_Cnpj);
+                if (validandoCpfUsuario == null)
                 {
 
                     if (_services.ValidaStatus_TipoUsuario(usuario))

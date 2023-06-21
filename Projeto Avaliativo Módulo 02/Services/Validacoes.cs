@@ -1,4 +1,5 @@
-﻿using Projeto_Avaliativo_Módulo_02.Enums;
+﻿using Projeto_Avaliativo_Módulo_02.Data;
+using Projeto_Avaliativo_Módulo_02.Enums;
 using Projeto_Avaliativo_Módulo_02.FromBodys;
 using Projeto_Avaliativo_Módulo_02.Models;
 using System;
@@ -10,6 +11,11 @@ namespace Projeto_Avaliativo_Módulo_02.Services
 {
     public class Validacoes
     {
+        private readonly Context _repository;
+        public Validacoes(Context context)
+        {
+            _repository = context;
+        }
         public bool ValidaStatus_TipoUsuario(Usuario usuario)
         {
             if ((usuario.Status == Enums.Status.Ativo || usuario.Status == Enums.Status.Inativo)
@@ -35,6 +41,62 @@ namespace Projeto_Avaliativo_Módulo_02.Services
             if(estacao == Estacoes.Outono || estacao == Estacoes.Inverno || estacao == Estacoes.Primavera || estacao == Estacoes.Verao)
             {
                     return true;
+            }
+            return false;
+        }
+
+        public bool ValidaTipoModelos (TipoModelos tipo)
+        {
+            if(tipo == TipoModelos.Bermuda || tipo == TipoModelos.Bíquini || 
+                    tipo == TipoModelos.Bolsa || tipo == TipoModelos.Boné ||
+                        tipo == TipoModelos.Calça || tipo == TipoModelos.Calçados ||
+                            tipo == TipoModelos.Camisa || tipo == TipoModelos.Chápeu ||
+                                tipo == TipoModelos.Saia)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ValidaLayoutModelos(LayoutModelos layout)
+        {
+            if(layout == LayoutModelos.Bordado || 
+                    layout == LayoutModelos.Estampa ||
+                        layout == LayoutModelos.Liso)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ValidaSeUsuarioExiste(int id)
+        {
+            return _repository.Usuarios.Any(e => e.Id == id);
+        }
+
+        public bool ValidaSeColecaoExiste(int id)
+        {
+            return _repository.Colecoes.Any(e => e.Id == id);
+        }
+
+        public bool ValidaDadosColecoes(Status status, Estacoes estacao, int Id)
+        {
+            if(ValidaEstacoes(estacao) && 
+                    ValidaStatus(status) &&
+                        ValidaSeUsuarioExiste(Id))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool ValidaDadosModelos (TipoModelos tipo, LayoutModelos layout, int Id)
+        {
+            if(ValidaTipoModelos(tipo) && 
+                    ValidaLayoutModelos(layout) &&
+                        ValidaSeColecaoExiste(Id))
+            {
+                return true;
             }
             return false;
         }

@@ -12,6 +12,8 @@ using Projeto_Avaliativo_Módulo_02.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Projeto_Avaliativo_Módulo_02
@@ -38,6 +40,11 @@ namespace Projeto_Avaliativo_Módulo_02
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataBase")));
             services.AddScoped<Context>();
+
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+            });
 
         }
 

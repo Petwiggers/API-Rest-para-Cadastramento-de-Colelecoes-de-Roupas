@@ -23,6 +23,66 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             _repository = context;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CadastroColecoes(Colecoes colecao)
+        {
+            try
+            {
+                Colecoes validandoUsuario = await _repository.Colecoes.FirstOrDefaultAsync(x => x.Nome == colecao.Nome);
+                if (validandoUsuario == null)
+                {
+                    if (_services.ValidaStatus(colecao.Status) && _services.ValidaEstacoes(colecao.Estacao))
+                    {
+                        await _repository.Colecoes.AddAsync(colecao);
+                        var resultado = await _repository.SaveChangesAsync();
+                        if (resultado > 0)
+                        {
+                            return StatusCode(201, colecao);
+                        }
+                        return BadRequest("O Usuario não foi atualizado !");
+                    }
+                    return BadRequest("A algum erro na inserção de Dados");
+                }
+                return Conflict($"Já possui uma coleção com o nome {colecao.Nome}");
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarColecoes(int id, Colecoes colecaoAtualizada)
+        {
+            try
+            {
+                if (colecaoAtualizada.Id != id)
+                {
+                    return BadRequest("No corpo da Coleção você deve inserir o mesmo Id correspondente a ela!");
+                }
+                Colecoes colecao  = await _repository.Colecoes.FindAsync(id);
+                if (!(colecao == null))
+                {
+                    if (_services.ValidaStatus(colecaoAtualizada.Status) && _services.ValidaEstacoes(colecaoAtualizada.Estacao))
+                    {
+                        _repository.Entry(colecao).CurrentValues.SetValues(colecaoAtualizada);
+                        int resultado = await _repository.SaveChangesAsync();
+                        if (resultado > 0)
+                        {
+                            return Ok(colecaoAtualizada);
+                        }
+                        return BadRequest("O Usuario não foi atualizado !");
+                    }
+                    return BadRequest("A algum erro na inserção de Dados");
+                }
+                return NotFound("O Usuario informado não existe !");
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
+        }
+    
         // GET: api/Colecoes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Colecoes>>> GetColecoes()
@@ -42,67 +102,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             }
 
             return colecoes;
-        }
-
-        // PUT: api/Colecoes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutColecoes(int id, Colecoes colecoes)
-        {
-            if (id != colecoes.Id)
-            {
-                return BadRequest();
-            }
-
-            _repository.Entry(colecoes).State = EntityState.Modified;
-
-            try
-            {
-                await _repository.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ColecoesExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Colecoes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Colecoes>> PostColecoes(Colecoes colecao)
-        {
-            try
-            {
-                Colecoes validandoUsuario = _repository.Colecoes.FirstOrDefault(x => x.Nome == colecao.Nome);
-                if (validandoUsuario == null)
-                {
-                    if (_services.ValidaStatus(colecao.Status) && _services.ValidaEstacoes(colecao.Estacao))
-                    {
-                        _repository.Colecoes.Add(colecao);
-                        var resultado = _repository.SaveChanges();
-                        if (resultado > 0)
-                        {
-                            return StatusCode(201, colecao);
-                        }
-                        return BadRequest("O Usuario não foi atualizado !");
-                    }
-                    return BadRequest("A algum erro na inserção de Dados");
-                }
-                return Conflict($"Já possui uma coleção com o nome {colecao.Nome}");
-            }
-            catch (Exception exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
-            }
         }
 
         // DELETE: api/Colecoes/5

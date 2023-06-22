@@ -112,8 +112,26 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                         modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Estampa).ToListAsync();
                         return Ok(modelos);
                     }
-                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n 'liso', 'bordado' ou 'estampa' \n\n Obs: Precisa ser escrito em Maiúsculo");
+                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n 'liso', 'bordado' ou 'estampa' \n\n Obs: Precisa ser escrito em Minúsculo !");
                 }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Colecoes>> ListagemDeModelosId(int id)
+        {
+            try
+            {
+                Modelos modelo = await _repository.Modelos.FindAsync(id);
+                if (!(modelo == null))
+                {
+                    return Ok(modelo);
+                }
+                return NotFound("O Modelo informado não existe !");
             }
             catch (Exception exception)
             {

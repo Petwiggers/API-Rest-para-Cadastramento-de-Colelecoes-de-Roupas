@@ -129,17 +129,17 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 }
                 else
                 {
-                    if (status == "ATIVO")
+                    if (status == "ativo")
                     {
                         colecoes = await _repository.Colecoes.Where(x => x.Status == Enums.Status.Ativo).ToListAsync();
                         return Ok(colecoes);
                     }
-                    else if (status == "INATIVO")
+                    else if (status == "inativo")
                     {
                         colecoes = await _repository.Colecoes.Where(x => x.Status == Enums.Status.Inativo).ToListAsync();
                         return Ok(colecoes);
                     }
-                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO \n\n Obs: Precisa ser escrito em Maiúsculo");
+                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO \n\n Obs: Precisa ser escrito em Minúsculo !");
                 }
             }
             catch (Exception exception)

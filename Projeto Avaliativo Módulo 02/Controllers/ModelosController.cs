@@ -85,12 +85,42 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<ActionResult<IEnumerable<Modelos>>> ListagemDeModelos([FromQuery] string layout)
         {
-            List<Modelos> modelos = _repository.Modelos.ToList();
-            return Ok(modelos);
+            try
+            {
+                List<Modelos> modelos;
+                if (layout == null)
+                {
+                    modelos = await _repository.Modelos.ToListAsync();
+                    return Ok(modelos);
+                }
+                else
+                {
+                    if (layout == "liso")
+                    {
+                        modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Liso).ToListAsync();
+                        return Ok(modelos);
+                    }
+                    else if (layout == "bordado")
+                    {
+                        modelos = await _repository.Modelos.Where(x => x.Layout== Enums.LayoutModelos.Bordado).ToListAsync();
+                        return Ok(modelos);
+                    }
+                    else if (layout == "estampa")
+                    {
+                        modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Estampa).ToListAsync();
+                        return Ok(modelos);
+                    }
+                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n 'liso', 'bordado' ou 'estampa' \n\n Obs: Precisa ser escrito em Maiúsculo");
+                }
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
+            }
         }
-
-
     }
 }
+
+

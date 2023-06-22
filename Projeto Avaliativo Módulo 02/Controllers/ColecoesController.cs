@@ -172,7 +172,15 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             var colecoes = await _repository.Colecoes.FindAsync(id);
             if (colecoes == null)
             {
-                return NotFound();
+                return NotFound("O Usuário digitado não existe na base de Dados !");
+            }
+            else if (colecoes.Status == Status.Ativo)
+            {
+                return BadRequest("Só podem ser excluidas Coleções Inativas no sistema !");
+            }
+            else if ((_services.VerificaModelosVinculados(id)))
+            {
+                return BadRequest("Você não pode excluir está coleção pois ela possui Modelos Vinculados a ela !");
             }
 
             _repository.Colecoes.Remove(colecoes);

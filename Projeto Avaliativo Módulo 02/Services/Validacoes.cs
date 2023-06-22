@@ -69,6 +69,11 @@ namespace Projeto_Avaliativo_Módulo_02.Services
             return false;
         }
 
+        public bool VerificaModelosVinculados(int Id)
+        {
+            return _repository.Modelos.Any(x => x.IdColecao == Id);
+        }
+
         public bool ValidaSeUsuarioExiste(int id)
         {
             return _repository.Usuarios.Any(e => e.Id == id);

@@ -122,7 +122,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Colecoes>> ListagemDeModelosId(int id)
+        public async Task<ActionResult<Modelos>> ListagemDeModelosId(int id)
         {
             try
             {
@@ -137,6 +137,20 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, exception.Message);
             }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteModelos(int id)
+        {
+            Modelos modelo= await _repository.Modelos.FindAsync(id);
+            if (modelo == null)
+            {
+                return NotFound("O Usuário digitado não existe na base de Dados !");
+            }
+
+            _repository.Modelos.Remove(modelo);
+            await _repository.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

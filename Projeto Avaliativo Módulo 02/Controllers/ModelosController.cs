@@ -28,8 +28,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                Modelos validandoUsuario = await _repository.Modelos.FirstOrDefaultAsync(x => x.Nome == modelo.Nome);
-                if (validandoUsuario == null)
+                if (!(_services.ValidaNomeModelo(modelo.Nome)))
                 {
                     if (_services.ValidaDadosModelos(modelo.Tipo, modelo.Layout, modelo.IdColecao))
                     {
@@ -61,11 +60,11 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 {
                     return BadRequest("No corpo da Coleção você deve inserir o mesmo Id correspondente a ela!");
                 }
-                Modelos modelo = await _repository.Modelos.FindAsync(id);
-                if (!(modelo == null))
+                if (_services.ValidaSeModeloExiste(id))
                 {
                     if (_services.ValidaDadosModelos(modeloAtualizado.Tipo, modeloAtualizado.Layout, modeloAtualizado.IdColecao))
                     {
+                        Modelos modelo = await _repository.Modelos.FindAsync(id);
                         _repository.Entry(modelo).CurrentValues.SetValues(modeloAtualizado);
                         int resultado = await _repository.SaveChangesAsync();
                         if (resultado > 0)
@@ -95,25 +94,22 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                     modelos = await _repository.Modelos.ToListAsync();
                     return Ok(modelos);
                 }
-                else
+                if (layout == "liso")
                 {
-                    if (layout == "liso")
-                    {
-                        modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Liso).ToListAsync();
-                        return Ok(modelos);
-                    }
-                    else if (layout == "bordado")
-                    {
-                        modelos = await _repository.Modelos.Where(x => x.Layout== Enums.LayoutModelos.Bordado).ToListAsync();
-                        return Ok(modelos);
-                    }
-                    else if (layout == "estampa")
-                    {
-                        modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Estampa).ToListAsync();
-                        return Ok(modelos);
-                    }
-                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n 'liso', 'bordado' ou 'estampa' \n\n Obs: Precisa ser escrito em Minúsculo !");
+                    modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Liso).ToListAsync();
+                    return Ok(modelos);
                 }
+                else if (layout == "bordado")
+                {
+                    modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Bordado).ToListAsync();
+                    return Ok(modelos);
+                }
+                else if (layout == "estampa")
+                {
+                    modelos = await _repository.Modelos.Where(x => x.Layout == Enums.LayoutModelos.Estampa).ToListAsync();
+                    return Ok(modelos);
+                }
+                return BadRequest("Você deve informar parametros Validos para a busca.\n\n 'liso', 'bordado' ou 'estampa' \n\n Obs: Precisa ser escrito em Minúsculo !");
             }
             catch (Exception exception)
             {
@@ -126,9 +122,9 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                Modelos modelo = await _repository.Modelos.FindAsync(id);
-                if (!(modelo == null))
+                if (_services.ValidaSeModeloExiste(id))
                 {
+                    Modelos modelo = await _repository.Modelos.FindAsync(id);
                     return Ok(modelo);
                 }
                 return NotFound("O Modelo informado não existe !");
@@ -142,12 +138,12 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteModelos(int id)
         {
-            Modelos modelo= await _repository.Modelos.FindAsync(id);
-            if (modelo == null)
+            if (_services.ValidaSeModeloExiste(id))
             {
                 return NotFound("O Usuário digitado não existe na base de Dados !");
             }
 
+            Modelos modelo = await _repository.Modelos.FindAsync(id);
             _repository.Modelos.Remove(modelo);
             await _repository.SaveChangesAsync();
             return NoContent();

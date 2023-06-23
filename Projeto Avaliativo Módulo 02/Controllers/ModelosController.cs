@@ -28,13 +28,13 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                if (_services.ValidaNomeModelo(modelo.Nome))
-                {
-                    return Conflict($"Já possui um Modelo com o nome {modelo.Nome}");
-                }
                 if (!(_services.ValidaSeColecaoExiste(modelo.IdColecao)))
                 {
                     return BadRequest("A Coleção que você relacionou a este Modelo não existe");
+                }
+                if (_services.ValidaNomeModelo(modelo.Nome))
+                {
+                    return Conflict($"Já possui um Modelo com o nome {modelo.Nome}");
                 }
                 if (!(_services.ValidaDadosModelos(modelo.Tipo, modelo.Layout, modelo.IdColecao)))
                 {
@@ -68,6 +68,10 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 if (modeloAtualizado.Id != id)
                 {
                     return BadRequest("No corpo do Modelo você deve inserir o mesmo Id correspondente a ele!");
+                }
+                if (_services.ValidaNomeModelo(modeloAtualizado.Nome))
+                {
+                    return Conflict($"Já possui um Modelo com o nome {modeloAtualizado.Nome}");
                 }
                 if (!(_services.ValidaSeColecaoExiste(modeloAtualizado.IdColecao)))
                 {

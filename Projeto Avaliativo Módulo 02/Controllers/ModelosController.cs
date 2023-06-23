@@ -32,6 +32,10 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 {
                     return Conflict($"Já possui um Modelo com o nome {modelo.Nome}");
                 }
+                if (!(_services.ValidaSeColecaoExiste(modelo.IdColecao)))
+                {
+                    return BadRequest("A Coleção que você relacionou a este Modelo não existe");
+                }
                 if (!(_services.ValidaDadosModelos(modelo.Tipo, modelo.Layout, modelo.IdColecao)))
                 {
                     return BadRequest("A algum erro na inserção de Dados");

@@ -32,11 +32,15 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             {
                 if (_services.ValidaNomeColecao(colecao.Nome))
                 {
-                    return Conflict($"Já possui uma Coleção com o nome {colecao.Nome}");
+                    return Conflict($"Já possui uma Coleção com o nome {colecao.Nome} !");
+                }
+                if (!(_services.ValidaSeUsuarioExiste(colecao.IdResponsavel)))
+                {
+                    return BadRequest("O Modelo que você relacionou a esta Coleção não existe !");
                 }
                 if (!(_services.ValidaDadosColecoes(colecao.Status, colecao.Estacao, colecao.IdResponsavel)))
                 {
-                    return BadRequest("A algum erro na inserção de Dados");
+                    return BadRequest("A algum erro na inserção de Dados !");
                 }
 
                 await _repository.Colecoes.AddAsync(colecao);
@@ -65,6 +69,10 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 if (colecaoAtualizada.Id != id)
                 {
                     return BadRequest("No corpo da Coleção você deve inserir o mesmo Id correspondente a ela!");
+                }
+                if (!(_services.ValidaSeUsuarioExiste(colecaoAtualizada.IdResponsavel)))
+                {
+                    return BadRequest("O Modelo que você relacionou a esta Coleção não existe !");
                 }
                 if (!(_services.ValidaDadosColecoes(colecaoAtualizada.Status, colecaoAtualizada.Estacao, colecaoAtualizada.IdResponsavel)))
                 {

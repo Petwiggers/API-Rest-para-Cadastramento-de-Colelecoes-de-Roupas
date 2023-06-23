@@ -152,7 +152,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteModelos(int id)
         {
-            if (_services.ValidaSeModeloExiste(id))
+            if (!(_services.ValidaSeModeloExiste(id)))
             {
                 return NotFound("O Usuário digitado não existe na base de Dados !");
             }

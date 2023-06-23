@@ -99,6 +99,11 @@ namespace Projeto_Avaliativo_Módulo_02.Services
             return _repository.Colecoes.Any(e => e.Nome == nome);
         }
 
+        public bool ValidaCnpjCpf(string cnpjCpf)
+        {
+            return _repository.Usuarios.Any(e => e.Cpf_Cnpj == cnpjCpf);
+        }
+
         public bool ValidaDadosColecoes(Status status, Estacoes estacao, int Id)
         {
             if(ValidaEstacoes(estacao) && 

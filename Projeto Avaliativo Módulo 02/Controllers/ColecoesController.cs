@@ -110,7 +110,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 }
                 if (!(_services.ValidaStatus(status)))
                 {
-                    return BadRequest("O campo Status deve conter os Valores de 0 = inativo ou 1 = ativo");
+                    return BadRequest("O campo Status deve conter os Valores de 'inativo' ou 'ativo'");
                 }
 
                 Colecoes colecao = await _repository.Colecoes.FindAsync(id);

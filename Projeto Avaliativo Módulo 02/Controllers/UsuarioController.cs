@@ -31,23 +31,22 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                Usuario validandoCpfUsuario = _repository.Usuarios.FirstOrDefault(x => x.Cpf_Cnpj == usuario.Cpf_Cnpj);
-                if (validandoCpfUsuario == null)
+                if (_services.ValidaCnpjCpf(usuario.Cpf_Cnpj))
                 {
-
-                    if (_services.ValidaStatus_TipoUsuario(usuario))
-                    {
-                        _repository.Usuarios.Add(usuario);
-                        var resultado = _repository.SaveChanges();
-                        if (resultado > 0)
-                        {
-                            return StatusCode(201, usuario);
-                        }
-                        return BadRequest("O Usuario não foi atualizado !");
-                    }
-                    return BadRequest("A algum erro na inserção de Dados");
+                    return Conflict("Ja possui um Usuário com o Cpf/Cnpj :" + usuario.Cpf_Cnpj);
                 }
-                return Conflict("Ja possui um Usuário com o Cpf/Cnpj :" +usuario.Cpf_Cnpj);
+                if (!(_services.ValidaStatus_TipoUsuario(usuario)))
+                {
+                    return BadRequest("O campo Status deve conter os Valores de 'inativo' ou 'ativo'");
+                }
+
+                _repository.Usuarios.Add(usuario);
+                var resultado = _repository.SaveChanges();
+                if (resultado > 0)
+                {
+                    return StatusCode(201, usuario);
+                }
+                return BadRequest("O Usuario não foi atualizado !");
             }
             catch (Exception exception)
             {
@@ -61,26 +60,31 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
+                if (!(_services.ValidaSeUsuarioExiste(id)))
+                {
+                    return NotFound("O Usuario informado não existe !");
+                }
                 if (novoUsuario.Id != id)
                 {
                     return BadRequest("No corpo do Usuario você deve inserir o mesmo Id correspondente a ele!");
                 }
-                Usuario usuario = _repository.Usuarios.Find(id);
-                if (!(usuario == null))
+                if (_services.ValidaCnpjCpf(novoUsuario.Cpf_Cnpj))
                 {
-                    if (_services.ValidaStatus_TipoUsuario(novoUsuario))
-                    {
-                        _repository.Entry(usuario).CurrentValues.SetValues(novoUsuario);
-                        int resultado = _repository.SaveChanges();
-                        if (resultado > 0)
-                        {
-                            return Ok(usuario);
-                        }
-                        return BadRequest("O Usuario não foi atualizado !");
-                    }
+                    return Conflict("Ja possui um Usuário com o Cpf/Cnpj :" + novoUsuario.Cpf_Cnpj);
+                }
+                if (!(_services.ValidaStatus_TipoUsuario(novoUsuario)))
+                {
                     return BadRequest("A algum erro na inserção de Dados");
                 }
-                return NotFound("O Usuario informado não existe !");
+
+                Usuario usuario = _repository.Usuarios.Find(id);
+                _repository.Entry(usuario).CurrentValues.SetValues(novoUsuario);
+                int resultado = _repository.SaveChanges();
+                if (resultado > 0)
+                {
+                    return Ok(usuario);
+                }
+                return BadRequest("O Usuario não foi atualizado !");
             }
             catch (Exception exception)
             {

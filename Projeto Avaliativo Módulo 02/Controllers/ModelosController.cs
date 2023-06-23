@@ -28,21 +28,22 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                if (!(_services.ValidaNomeModelo(modelo.Nome)))
+                if (_services.ValidaNomeModelo(modelo.Nome))
                 {
-                    if (_services.ValidaDadosModelos(modelo.Tipo, modelo.Layout, modelo.IdColecao))
-                    {
-                        await _repository.Modelos.AddAsync(modelo);
-                        var resultado = await _repository.SaveChangesAsync();
-                        if (resultado > 0)
-                        {
-                            return StatusCode(201, modelo);
-                        }
-                        return BadRequest("O Usuario não foi atualizado !");
-                    }
+                    return Conflict($"Já possui um Modelo com o nome {modelo.Nome}");
+                }
+                if (!(_services.ValidaDadosModelos(modelo.Tipo, modelo.Layout, modelo.IdColecao)))
+                {
                     return BadRequest("A algum erro na inserção de Dados");
                 }
-                return Conflict($"Já possui um Modelo com o nome {modelo.Nome}");
+
+                await _repository.Modelos.AddAsync(modelo);
+                var resultado = await _repository.SaveChangesAsync();
+                if (resultado > 0)
+                {
+                    return StatusCode(201, modelo);
+                }
+                return BadRequest("O Usuario não foi atualizado !");
             }
             catch (Exception exception)
             {
@@ -56,26 +57,31 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
+                if (!(_services.ValidaSeModeloExiste(id)))
+                {
+                    return NotFound("O Modelo informado não existe !");
+                }
                 if (modeloAtualizado.Id != id)
                 {
-                    return BadRequest("No corpo da Coleção você deve inserir o mesmo Id correspondente a ela!");
+                    return BadRequest("No corpo do Modelo você deve inserir o mesmo Id correspondente a ele!");
                 }
-                if (_services.ValidaSeModeloExiste(id))
+                if (!(_services.ValidaSeColecaoExiste(modeloAtualizado.IdColecao)))
                 {
-                    if (_services.ValidaDadosModelos(modeloAtualizado.Tipo, modeloAtualizado.Layout, modeloAtualizado.IdColecao))
-                    {
-                        Modelos modelo = await _repository.Modelos.FindAsync(id);
-                        _repository.Entry(modelo).CurrentValues.SetValues(modeloAtualizado);
-                        int resultado = await _repository.SaveChangesAsync();
-                        if (resultado > 0)
-                        {
-                            return Ok(modeloAtualizado);
-                        }
-                        return BadRequest("O Usuario não foi atualizado !");
-                    }
+                    return BadRequest("A Coleção que você relacionou a este Modelo não existe");
+                }
+                if (!(_services.ValidaDadosModelos(modeloAtualizado.Tipo, modeloAtualizado.Layout, modeloAtualizado.IdColecao)))
+                {
                     return BadRequest("A algum erro na inserção de Dados");
                 }
-                return NotFound("O Usuario informado não existe !");
+                
+                Modelos modelo = await _repository.Modelos.FindAsync(id);
+                _repository.Entry(modelo).CurrentValues.SetValues(modeloAtualizado);
+                int resultado = await _repository.SaveChangesAsync();
+                if (resultado > 0)
+                {
+                    return Ok(modeloAtualizado);
+                }
+                return BadRequest("O Usuario não foi atualizado !");
             }
             catch (Exception exception)
             {

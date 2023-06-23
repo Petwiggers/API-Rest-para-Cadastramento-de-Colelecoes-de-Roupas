@@ -109,7 +109,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                         return BadRequest($"O Usuário ja está {status} !");
 
                     }
-                    return BadRequest("O campo Status deve conter os Valores de 0 = Inativo ou 1 = Ativo");
+                    return BadRequest("O campo Status deve conter os Valores de 0 = inativo ou 1 = ativo");
 
                 }
                 return NotFound("O Usuario informado não existe !");

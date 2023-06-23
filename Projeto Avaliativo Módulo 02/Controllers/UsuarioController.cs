@@ -98,25 +98,25 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
-                Usuario usuario = _repository.Usuarios.Find(id);
-                if (!(usuario == null))
+                if (!(_services.ValidaSeUsuarioExiste(id)))
                 {
-                    if (_services.ValidaStatus(status))
-                    {
-                        usuario.Status = status;
-                        _repository.Entry(usuario).CurrentValues.SetValues(usuario);
-                        int resultado = _repository.SaveChanges();
-                        if (resultado > 0)
-                        {
-                            return Ok(usuario);
-                        }
-                        return BadRequest($"O Usuário ja está {status} !");
-
-                    }
-                    return BadRequest("O campo Status deve conter os Valores de 0 = inativo ou 1 = ativo");
-
+                    return NotFound("O Usuario informado não existe !");
                 }
-                return NotFound("O Usuario informado não existe !");
+                if (!(_services.ValidaStatus(status)))
+                {
+                    return BadRequest("O campo Status deve conter os Valores de 'inativo' ou 'ativo'");
+                }
+
+                Usuario usuario = _repository.Usuarios.Find(id);
+                usuario.Status = status;
+                _repository.Entry(usuario).CurrentValues.SetValues(usuario);
+                int resultado = _repository.SaveChanges();
+                if (resultado > 0)
+                {
+                    return Ok(usuario);
+                }
+                return BadRequest($"O Usuário ja está {status} !");
+
             }
             catch (Exception exception)
             {
@@ -162,7 +162,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
             try
             {
                 Usuario usuario = _repository.Usuarios.Find(id);
-                if (!(usuario == null))
+                if (_services.ValidaSeUsuarioExiste(id))
                 {
                     return Ok(usuario);
                 }

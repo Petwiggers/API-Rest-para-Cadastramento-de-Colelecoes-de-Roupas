@@ -70,6 +70,10 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 {
                     return BadRequest("No corpo da Coleção você deve inserir o mesmo Id correspondente a ela!");
                 }
+                if (_services.ValidaNomeColecao(colecaoAtualizada.Nome))
+                {
+                    return Conflict($"Já possui uma Coleção com o nome {colecaoAtualizada.Nome} !");
+                }
                 if (!(_services.ValidaSeUsuarioExiste(colecaoAtualizada.IdResponsavel)))
                 {
                     return BadRequest("O Modelo que você relacionou a esta Coleção não existe !");

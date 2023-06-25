@@ -1,12 +1,8 @@
 # API Rest para Cadastramento de Coleções de Roupas
 
-<img script width: 250px height: 250px src="./Fotos/Captura%20de%20tela%202023-06-25%20182814.png">
-<img script width: 250px height: 250px src="./Fotos/Captura%20de%20tela%202023-06-25%20182842.png">
-<img script width: 250px height: 250px src="./Fotos/Captura%20de%20tela%202023-06-25%20182901.png>
-
 ## Introdução ao Projeto
 
-Este projeto é uma API desenvolvido no término do segundo Módulo do Curso DEVinHouse (Lab 365). Ele é utilizado para cadastramento de Coleções, Modelos de Roupas e seus respectivos Usuários, utulizando requizições com os verbos Rest's para cada função da API. Ela foi criada utilizando entity framework Core para conecxão com o Banco de Dados (SQL Server), a criação do projeto foi feita com dotnet 5.
+  Este projeto é uma API desenvolvido no término do segundo Módulo do Curso DEVinHouse (Lab 365). Ele é utilizado para cadastramento de Coleções, Modelos de Roupas e seus respectivos Usuários, utulizando requizições com os verbos Rest's para cada função da API. Ela foi criada utilizando entity framework Core para conecxão com o Banco de Dados (SQL Server), a criação do projeto foi feita com dotnet 5.
 
 ## Como é Utilizado
 
@@ -19,8 +15,6 @@ Para utilizar este projeto você deverá :
 - Rodar o projeto atravez do Visual Studio;
 
 ## Composição de Pastas
-
-<img script width: 250px height: 250px src="./Fotos/ModelosDePastas.png">
 
 O Projeto é composto por diversas pastas sendo elas :
 

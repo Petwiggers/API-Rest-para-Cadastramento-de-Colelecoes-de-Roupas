@@ -1,8 +1,8 @@
 # API Rest para Cadastramento de Coleções de Roupas
 
-<img script width: 250px height: 250px src="./Fotos/Captura%20de%20tela%202023-06-25%20182814.png">
-<img script width: 250px height: 250px src="./Fotos/Captura%20de%20tela%202023-06-25%20182842.png">
-<img script width: 250px height: 250px src="./Fotos/Captura%20de%20tela%202023-06-25%20182901.png>
+<img  src="./Fotos/Captura%20de%20tela%202023-06-25%20182814.png">
+<img  src="./Fotos/Captura%20de%20tela%202023-06-25%20182842.png">
+<img  src="./Fotos/Captura%20de%20tela%202023-06-25%20182901.png">
 
 ## Introdução ao Projeto
 
@@ -20,7 +20,7 @@ Para utilizar este projeto você deverá :
 
 ## Composição de Pastas
 
-<img script width: 250px height: 250px src="./Fotos/ModelosDePastas.png">
+<img src="./Fotos/ModelosDePastas.png">
 
 O Projeto é composto por diversas pastas sendo elas :
 

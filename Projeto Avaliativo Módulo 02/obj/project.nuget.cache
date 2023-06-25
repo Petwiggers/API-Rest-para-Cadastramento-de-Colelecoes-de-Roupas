@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "H7qZAffc5OQFpNJRjO8x/lx3nrKGU/CsuMp6sliy1CHner/gqM5R7IEYGlG7bB9Awm+rqAWseo9+L33oeqPTpQ==",
+  "dgSpecHash": "wwiab4AfINw9Hx6QByWrZI/pZA7ljE30Gny89ah2iVobwDcnZFzjQvgREBqPmbdVBjFc9RAZr8C9JWKYArigyA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Acer\\Pet\\DevinHouse\\Projetos\\Projeto Avaliativo Módulo 02\\Projeto Avaliativo Módulo 02\\Projeto Avaliativo Módulo 02.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Acer\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Acer\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",

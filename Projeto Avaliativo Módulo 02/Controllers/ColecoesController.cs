@@ -62,6 +62,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
+                Colecoes colecao  = await _repository.Colecoes.FindAsync(id);
                 if (!(_services.ValidaSeColecaoExiste(id)))
                 {
                     return NotFound("A Coleção informada não existe !");
@@ -70,7 +71,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 {
                     return BadRequest("No corpo da Coleção você deve inserir o mesmo Id correspondente a ela!");
                 }
-                if (_services.ValidaNomeColecao(colecaoAtualizada.Nome))
+                if (_services.ValidaNomeColecao(colecaoAtualizada.Nome) && colecaoAtualizada.Nome != colecao.Nome)
                 {
                     return Conflict($"Já possui uma Coleção com o nome {colecaoAtualizada.Nome} !");
                 }
@@ -83,7 +84,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                     return BadRequest("A algum erro na inserção de Dados");
                 }
 
-                Colecoes colecao  = await _repository.Colecoes.FindAsync(id);
                 _repository.Entry(colecao).CurrentValues.SetValues(colecaoAtualizada);
                 int resultado = await _repository.SaveChangesAsync();
                 if (resultado > 0)

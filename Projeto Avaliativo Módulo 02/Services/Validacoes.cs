@@ -1,6 +1,5 @@
 ﻿using Projeto_Avaliativo_Módulo_02.Data;
 using Projeto_Avaliativo_Módulo_02.Enums;
-using Projeto_Avaliativo_Módulo_02.FromBodys;
 using Projeto_Avaliativo_Módulo_02.Models;
 using System;
 using System.Collections.Generic;
@@ -96,12 +95,13 @@ namespace Projeto_Avaliativo_Módulo_02.Services
 
         public bool ValidaNomeColecao(string nome)
         {
+            
             return _repository.Colecoes.Any(e => e.Nome == nome);
         }
 
         public bool ValidaCnpjCpf(string cnpjCpf)
         {
-            return _repository.Usuarios.Any(e => e.Cpf_Cnpj == cnpjCpf);
+            return _repository.Usuarios.Any(e => e.Cpf_Cnpj == cnpjCpf);   
         }
 
         public bool ValidaDadosColecoes(Status status, Estacoes estacao, int Id)

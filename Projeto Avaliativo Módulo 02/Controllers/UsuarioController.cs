@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Avaliativo_Módulo_02.Data;
 using Projeto_Avaliativo_Módulo_02.Enums;
-using Projeto_Avaliativo_Módulo_02.FromBodys;
 using Projeto_Avaliativo_Módulo_02.Models;
 using Projeto_Avaliativo_Módulo_02.Services;
 using System;
@@ -37,7 +36,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 }
                 if (!(_services.ValidaStatus_TipoUsuario(usuario)))
                 {
-                    return BadRequest("O campo Status deve conter os Valores de 'inativo' ou 'ativo'");
+                    return BadRequest("A algum erro na inserção de Dados");
                 }
 
                 _repository.Usuarios.Add(usuario);
@@ -60,6 +59,8 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
+                
+                Usuario usuario = _repository.Usuarios.Find(id);
                 if (!(_services.ValidaSeUsuarioExiste(id)))
                 {
                     return NotFound("O Usuario informado não existe !");
@@ -68,7 +69,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 {
                     return BadRequest("No corpo do Usuario você deve inserir o mesmo Id correspondente a ele!");
                 }
-                if (_services.ValidaCnpjCpf(novoUsuario.Cpf_Cnpj))
+                if (_services.ValidaCnpjCpf(novoUsuario.Cpf_Cnpj) && novoUsuario.Cpf_Cnpj != usuario.Cpf_Cnpj)
                 {
                     return Conflict("Ja possui um Usuário com o Cpf/Cnpj :" + novoUsuario.Cpf_Cnpj);
                 }
@@ -76,8 +77,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 {
                     return BadRequest("A algum erro na inserção de Dados");
                 }
-
-                Usuario usuario = _repository.Usuarios.Find(id);
                 _repository.Entry(usuario).CurrentValues.SetValues(novoUsuario);
                 int resultado = _repository.SaveChanges();
                 if (resultado > 0)
@@ -137,17 +136,17 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 }
                 else
                 {
-                    if (status == "ATIVO")
+                    if (status == "ativo")
                     {
                         usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Ativo).ToList();
                         return Ok(usuarios);
                     }
-                    else if (status == "INATIVO")
+                    else if (status == "inativo")
                     {
                         usuarios = _repository.Usuarios.Where(x => x.Status == Enums.Status.Inativo).ToList();
                         return Ok(usuarios);
                     }
-                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n ATIVO ou INATIVO \n\n Obs: Precisa ser escrito em Maiúsculo");
+                    return BadRequest("Você deve informar parametros Validos para a busca.\n\n 'ativo' ou 'inativo'\n\n Obs: Precisa ser escrito em Minúsculo !");
                 }
             }
             catch (Exception exception)

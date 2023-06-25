@@ -61,6 +61,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
         {
             try
             {
+                Modelos modelo = await _repository.Modelos.FindAsync(id);
                 if (!(_services.ValidaSeModeloExiste(id)))
                 {
                     return NotFound("O Modelo informado não existe !");
@@ -69,7 +70,7 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                 {
                     return BadRequest("No corpo do Modelo você deve inserir o mesmo Id correspondente a ele!");
                 }
-                if (_services.ValidaNomeModelo(modeloAtualizado.Nome))
+                if (_services.ValidaNomeModelo(modeloAtualizado.Nome) && modeloAtualizado.Nome != modelo.Nome)
                 {
                     return Conflict($"Já possui um Modelo com o nome {modeloAtualizado.Nome}");
                 }
@@ -82,7 +83,6 @@ namespace Projeto_Avaliativo_Módulo_02.Controllers
                     return BadRequest("A algum erro na inserção de Dados");
                 }
                 
-                Modelos modelo = await _repository.Modelos.FindAsync(id);
                 _repository.Entry(modelo).CurrentValues.SetValues(modeloAtualizado);
                 int resultado = await _repository.SaveChangesAsync();
                 if (resultado > 0)

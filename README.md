@@ -2,9 +2,11 @@
 
 ## Introdução ao Projeto
 
-  Este projeto é uma API desenvolvido no término do segundo Módulo do Curso DEVinHouse (Lab 365). Ele é utilizado para cadastramento de Coleções, Modelos de Roupas e seus respectivos Usuários, utulizando requizições com os verbos Rest's para cada função da API. Ela foi criada utilizando entity framework Core para conecxão com o Banco de Dados (SQL Server), a criação do projeto foi feita com dotnet 5.
+  Este projeto é uma API desenvolvido no término do segundo Módulo do Curso DEVinHouse (Lab 365). Ele é uma API utilizada para cadastramento de Coleções, Modelos de Roupas e seus respectivos Usuários, utulizando requizições com os verbos Rest's para cada função da API. Ela foi criada utilizando entity framework Core para conecxão com o Banco de Dados (SQL Server), a criação do projeto foi feita com dotnet 5.
+  Então a para todas as entidades do sistema teram verbos Rest's respectivos a cada função de movimentação de dados, como adicionar essas entidades, modificar, requerir e excluir.
+  
 
-## Como é Utilizado
+## Como Utilizar
 
 Para utilizar este projeto você deverá :
 
